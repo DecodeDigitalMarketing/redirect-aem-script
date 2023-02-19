@@ -56,7 +56,7 @@ async function request(url) {
 async function processReading() {
     try {
         for (const item of markets) {
-            const ranges    = item.ranges;
+            const ranges    = item.sheetRange;
             const market    = item.market;
             const res       = await readSpreadsheet(spreadsheetId, ranges); 
             const path      = res.data.sheets[0].data[0].rowMetadata
@@ -64,7 +64,7 @@ async function processReading() {
             const dataRows  = rows.slice(1, rows.length);
             const urlFrom   = new Set([...dataRows.map((item) => item[0])])
 
-            const spreadSheetData = [['Path']]
+            const spreadSheetData = [['URL']]
 
             for (const url of Array.from(urlFrom)) {
                 const path = `${crxde}${market}/en${encodeURI(url)}`
